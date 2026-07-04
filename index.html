@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Michael Pezzei — Portfolio</title>
+<meta name="description" content="Portfolio von Michael Pezzei — Fahrzeugtechnik-Student, Maker und Embedded-Entwickler aus Südtirol.">
+<style>
+  :root {
+    --navy: #0E2A47;
+    --navy-deep: #081826;
+    --navy-panel: #123456;
+    --line: #F2F6F5;
+    --grid-line: rgba(122, 163, 191, 0.18);
+    --grid-line-strong: rgba(122, 163, 191, 0.35);
+    --copper: #C97D3F;
+    --copper-bright: #E0955A;
+    --muted: #9FB3C4;
+    --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Mono", Consolas, monospace;
+    --sans: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --radius: 2px;
+  }
+
+  * { box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation: none !important; transition: none !important; }
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--navy);
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 36px 36px;
+    color: var(--line);
+    font-family: var(--sans);
+    line-height: 1.6;
+  }
+
+  a { color: inherit; }
+
+  a:focus-visible, button:focus-visible {
+    outline: 2px solid var(--copper);
+    outline-offset: 3px;
+  }
+
+  .wrap {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  /* ---- Header ---- */
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: rgba(14, 42, 71, 0.88);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--grid-line-strong);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+  }
+
+  .brand {
+    font-family: var(--mono);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 28px;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav a {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  nav a:hover { color: var(--copper-bright); }
+
+  .rev-stamp {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    border: 1px solid var(--grid-line-strong);
+    padding: 3px 8px;
+    border-radius: var(--radius);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 720px) {
+    nav ul { display: none; }
+  }
+
+  /* ---- Hero ---- */
+  .hero {
+    position: relative;
+    padding: 100px 24px 90px;
+    overflow: hidden;
+  }
+
+  .hero-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    letter-spacing: 0.15em;
+    color: var(--copper-bright);
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  h1.name {
+    font-family: var(--mono);
+    font-size: clamp(2.2rem, 6vw, 4rem);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    margin: 0 0 18px;
+    line-height: 1.1;
+  }
+
+  .tagline {
+    font-size: 1.15rem;
+    color: var(--line);
+    max-width: 560px;
+    margin: 0 0 34px;
+  }
+
+  .tagline strong { color: var(--copper-bright); font-weight: 600; }
+
+  .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+  .btn {
+    font-family: var(--mono);
+    font-size: 0.85rem;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    padding: 12px 22px;
+    border-radius: var(--radius);
+    display: inline-block;
+    transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .btn-primary {
+    background: var(--copper);
+    color: var(--navy-deep);
+    font-weight: 700;
+    border: 1px solid var(--copper);
+  }
+  .btn-primary:hover { background: var(--copper-bright); transform: translateY(-2px); }
+
+  .btn-ghost {
+    border: 1px solid var(--grid-line-strong);
+    color: var(--line);
+  }
+  .btn-ghost:hover { border-color: var(--copper); color: var(--copper-bright); transform: translateY(-2px); }
+
+  .circuit-bg {
+    position: absolute;
+    right: -60px;
+    top: 0;
+    width: 620px;
+    max-width: 60vw;
+    height: 100%;
+    opacity: 0.55;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  .circuit-bg path {
+    fill: none;
+    stroke: var(--grid-line-strong);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-dasharray: 1400;
+    stroke-dashoffset: 1400;
+    animation: draw 2.4s ease-out forwards;
+  }
+  .circuit-bg circle { fill: var(--copper); opacity: 0; animation: fadein 0.6s ease-out forwards; }
+  .circuit-bg circle:nth-of-type(1) { animation-delay: 1.2s; }
+  .circuit-bg circle:nth-of-type(2) { animation-delay: 1.6s; }
+  .circuit-bg circle:nth-of-type(3) { animation-delay: 2.0s; }
+
+  @keyframes draw { to { stroke-dashoffset: 0; } }
+  @keyframes fadein { to { opacity: 1; } }
+
+  /* ---- Section headings ---- */
+  section { padding: 70px 0; }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 40px;
+    border-bottom: 1px solid var(--grid-line-strong);
+    padding-bottom: 14px;
+  }
+
+  .section-num {
+    font-family: var(--mono);
+    color: var(--copper-bright);
+    font-size: 0.9rem;
+  }
+
+  .section-head h2 {
+    font-family: var(--mono);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 1.3rem;
+    margin: 0;
+  }
+
+  /* ---- Projects ---- */
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 22px;
+  }
+
+  .sheet {
+    background: var(--navy-panel);
+    border: 1px solid var(--grid-line-strong);
+    border-radius: var(--radius);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.18s ease, border-color 0.18s ease;
+  }
+
+  .sheet:hover { transform: translateY(-4px); border-color: var(--copper); }
+
+  .sheet-label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    padding: 12px 18px 0;
+  }
+
+  .sheet-body { padding: 8px 18px 18px; flex: 1; }
+
+  .sheet-body h3 {
+    font-size: 1.1rem;
+    margin: 6px 0 10px;
+  }
+
+  .sheet-body p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    margin: 0 0 14px;
+  }
+
+  .tags { display: flex; flex-wrap: wrap; gap: 6px; }
+
+  .tag {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--copper-bright);
+    border: 1px solid var(--copper-dim, rgba(201,125,63,0.4));
+    padding: 3px 8px;
+    border-radius: var(--radius);
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+
+  .title-block {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    color: var(--muted);
+    border-top: 1px solid var(--grid-line-strong);
+  }
+
+  .title-block div {
+    padding: 8px 18px;
+    border-right: 1px solid var(--grid-line-strong);
+  }
+  .title-block div:nth-child(2n) { border-right: none; }
+  .title-block span { display: block; color: var(--line); margin-top: 2px; }
+
+  .title-block a { color: var(--copper-bright); text-decoration: none; }
+  .title-block a:hover { text-decoration: underline; }
+
+  /* ---- Skills / BOM table ---- */
+  .bom {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+
+  .bom caption {
+    text-align: left;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--muted);
+    margin-bottom: 10px;
+    letter-spacing: 0.04em;
+  }
+
+  .bom th, .bom td {
+    text-align: left;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--grid-line);
+  }
+
+  .bom th {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--copper-bright);
+    border-bottom: 1px solid var(--grid-line-strong);
+  }
+
+  .bom td:first-child { font-family: var(--mono); color: var(--muted); width: 50px; }
+
+  .bom-group td {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--copper-bright);
+    background: rgba(201,125,63,0.06);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  /* ---- About ---- */
+  .about-text { max-width: 640px; color: var(--line); }
+  .about-text p { margin: 0 0 16px; }
+
+  /* ---- Contact ---- */
+  .contact-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .contact-card {
+    background: var(--navy-panel);
+    border: 1px solid var(--grid-line-strong);
+    border-radius: var(--radius);
+    padding: 18px 22px;
+    flex: 1;
+    min-width: 220px;
+    text-decoration: none;
+    transition: border-color 0.18s ease, transform 0.18s ease;
+  }
+  .contact-card:hover { border-color: var(--copper); transform: translateY(-3px); }
+
+  .contact-card .label {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .contact-card .value {
+    font-size: 1rem;
+    color: var(--line);
+  }
+
+  footer {
+    border-top: 1px solid var(--grid-line-strong);
+    padding: 26px 24px;
+    text-align: center;
+  }
+
+  footer p {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--muted);
+    margin: 0;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <a class="brand" href="#top">MICHAEL PEZZEI</a>
+    <nav>
+      <ul>
+        <li><a href="#projekte">Projekte</a></li>
+        <li><a href="#bauteile">Skills</a></li>
+        <li><a href="#ueber-mich">Über mich</a></li>
+        <li><a href="#kontakt">Kontakt</a></li>
+      </ul>
+    </nav>
+    <span class="rev-stamp">REV. 2026.07</span>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <svg class="circuit-bg" viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M400 40 L280 40 L280 120 L200 120 L200 200 L320 200 L320 300 L240 300 L240 400 L400 400" />
+    <path d="M400 460 L340 460 L340 380 L260 380 L260 260 L180 260 L180 160" />
+    <circle cx="200" cy="120" r="4" />
+    <circle cx="320" cy="300" r="4" />
+    <circle cx="180" cy="160" r="4" />
+  </svg>
+  <div class="hero-inner">
+    <div class="eyebrow">Fahrzeugtechnik · Embedded Systems · Maker</div>
+    <h1 class="name">Michael Pezzei</h1>
+    <p class="tagline">
+      Ich baue <strong>Dinge, die tatsächlich funktionieren</strong> — von ESP32-Firmware
+      über 3D-gedruckte Hardware bis zur Reparatur defekter Platinen. Fahrzeugtechnik-Student
+      aus Südtirol mit Hang zum Selbermachen.
+    </p>
+    <div class="hero-actions">
+      <a class="btn btn-primary" href="#projekte">Projekte ansehen</a>
+      <a class="btn btn-ghost" href="https://github.com/MichaelPezzei" target="_blank" rel="noopener">GitHub →</a>
+    </div>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <section id="projekte">
+    <div class="section-head">
+      <span class="section-num">01</span>
+      <h2>Projekte</h2>
+    </div>
+    <div class="project-grid">
+
+      <article class="sheet">
+        <div class="sheet-label">BLATT 01</div>
+        <div class="sheet-body">
+          <h3>ESP32-Whirlpool-Automatisierung</h3>
+          <p>Steuerung eines Intex-Whirlpools über ESP32 — eigene Firmware, Custom-Verkabelung
+          mit Crimp-Kontakten und 3D-gedrucktem Adapter, inklusive Reparatur des Heizungs-Steuerboards.</p>
+          <div class="tags">
+            <span class="tag">ESP32</span>
+            <span class="tag">PCB</span>
+            <span class="tag">Home Automation</span>
+          </div>
+        </div>
+        <div class="title-block">
+          <div>Material<span>ESP32, Relais, PCB</span></div>
+          <div>Status<span>Abgeschlossen</span></div>
+          <div>Kategorie<span>Embedded / Hardware</span></div>
+          <div>Repo<span><a href="https://github.com/MichaelPezzei" target="_blank" rel="noopener">GitHub →</a></span></div>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-label">BLATT 02</div>
+        <div class="sheet-body">
+          <h3>ESP32 Game Center</h3>
+          <p>Browserbasierte Multiplayer-Spielesammlung (UNO, Vier Gewinnt, Tic Tac Toe, Battleship),
+          komplett auf einem ESP32 gehostet — kein externer Server nötig.</p>
+          <div class="tags">
+            <span class="tag">ESP32</span>
+            <span class="tag">WebServer</span>
+            <span class="tag">PlatformIO</span>
+          </div>
+        </div>
+        <div class="title-block">
+          <div>Material<span>ESP32, HTML/JS</span></div>
+          <div>Status<span>Abgeschlossen</span></div>
+          <div>Kategorie<span>Firmware / Web</span></div>
+          <div>Repo<span><a href="https://github.com/MichaelPezzei" target="_blank" rel="noopener">GitHub →</a></span></div>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-label">BLATT 03</div>
+        <div class="sheet-body">
+          <h3>SSID-Marquee via Beacon-Injection</h3>
+          <p>Scrollender Lauftext im WLAN-Netzwerknamen, erzeugt durch gezielte Beacon-Frame-Injection
+          über einen ESP32 — kleines Experiment am Rande von WLAN-Protokollen.</p>
+          <div class="tags">
+            <span class="tag">ESP32</span>
+            <span class="tag">WiFi</span>
+            <span class="tag">Low-Level</span>
+          </div>
+        </div>
+        <div class="title-block">
+          <div>Material<span>ESP32</span></div>
+          <div>Status<span>Abgeschlossen</span></div>
+          <div>Kategorie<span>Firmware</span></div>
+          <div>Repo<span><a href="https://github.com/MichaelPezzei" target="_blank" rel="noopener">GitHub →</a></span></div>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-label">BLATT 04</div>
+        <div class="sheet-body">
+          <h3>3D-Druck-Workflows</h3>
+          <p>Multicolor-Drucke, wasserdichte PETG-Bauteile und funktionale Adapter für eigene Projekte —
+          entwickelt und gefertigt mit Bambu Lab A1 (AMS Lite) und P1S.</p>
+          <div class="tags">
+            <span class="tag">Bambu Studio</span>
+            <span class="tag">PETG / ASA</span>
+            <span class="tag">Tinkercad</span>
+          </div>
+        </div>
+        <div class="title-block">
+          <div>Material<span>PETG, ASA, TPU</span></div>
+          <div>Status<span>Laufend</span></div>
+          <div>Kategorie<span>Fertigung</span></div>
+          <div>Repo<span><a href="https://github.com/MichaelPezzei" target="_blank" rel="noopener">GitHub →</a></span></div>
+        </div>
+      </article>
+
+      <article class="sheet">
+        <div class="sheet-label">BLATT 05</div>
+        <div class="sheet-body">
+          <h3>Anycubic i3 Mega — Reparatur</h3>
+          <p>Diagnose und Reparatur eines durchgebrannten Heizbett-MOSFETs, inklusive Austausch des
+          Trigorilla-Pro-Mainboards. Restliche Komponenten dienen als Ersatzteillager für neue Projekte.</p>
+          <div class="tags">
+            <span class="tag">Elektronik</span>
+            <span class="tag">Reparatur</span>
+            <span class="tag">3D-Druck</span>
+          </div>
+        </div>
+        <div class="title-block">
+          <div>Material<span>Mainboard, MOSFET</span></div>
+          <div>Status<span>Abgeschlossen</span></div>
+          <div>Kategorie<span>Hardware-Repair</span></div>
+          <div>Repo<span><a href="https://github.com/MichaelPezzei" target="_blank" rel="noopener">GitHub →</a></span></div>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section id="bauteile">
+    <div class="section-head">
+      <span class="section-num">02</span>
+      <h2>Skills</h2>
+    </div>
+    <table class="bom">
+      <caption>Stückliste — Kompetenzen nach Kategorie</caption>
+      <thead>
+        <tr><th>Pos.</th><th>Bezeichnung</th><th>Referenz</th></tr>
+      </thead>
+      <tbody>
+        <tr class="bom-group"><td colspan="3">Embedded &amp; Hardware</td></tr>
+        <tr><td>01</td><td>ESP32 / Mikrocontroller-Firmware</td><td>PlatformIO, VS Code</td></tr>
+        <tr><td>02</td><td>PCB- &amp; Schaltungs-Grundlagen</td><td>Reparatur &amp; Eigenbau</td></tr>
+        <tr><td>03</td><td>Elektronik-Diagnose &amp; Reparatur</td><td>Triac, MOSFET, Mainboards</td></tr>
+
+        <tr class="bom-group"><td colspan="3">Fertigung</td></tr>
+        <tr><td>04</td><td>3D-Druck (FDM)</td><td>Bambu Lab A1 / P1S</td></tr>
+        <tr><td>05</td><td>CAD / Modellierung</td><td>Tinkercad</td></tr>
+
+        <tr class="bom-group"><td colspan="3">Mechanik &amp; Technik</td></tr>
+        <tr><td>06</td><td>Technische Mechanik / FEM</td><td>Kraftgrößenmethode, Stabwerke</td></tr>
+        <tr><td>07</td><td>Fahrzeugtechnik-Grundlagen</td><td>Studium</td></tr>
+
+        <tr class="bom-group"><td colspan="3">Software</td></tr>
+        <tr><td>08</td><td>Git / GitHub</td><td>Versionskontrolle</td></tr>
+        <tr><td>09</td><td>Web-Grundlagen</td><td>HTML, CSS, JS</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section id="ueber-mich">
+    <div class="section-head">
+      <span class="section-num">03</span>
+      <h2>Über mich</h2>
+    </div>
+    <div class="about-text">
+      <p>
+        Ich studiere Fahrzeugtechnik und verbringe meine Freizeit am liebsten damit, Dinge
+        auseinanderzunehmen, zu reparieren oder komplett neu zu bauen. Meistens landet dabei
+        irgendwo ein ESP32, ein 3D-Drucker oder beides.
+      </p>
+      <p>
+        Mich interessiert vor allem die Schnittstelle zwischen Mechanik, Elektronik und Software —
+        also genau der Bereich, in dem die meisten meiner Projekte entstehen.
+      </p>
+    </div>
+  </section>
+
+  <section id="kontakt">
+    <div class="section-head">
+      <span class="section-num">04</span>
+      <h2>Kontakt</h2>
+    </div>
+    <div class="contact-grid">
+      <a class="contact-card" href="https://github.com/MichaelPezzei" target="_blank" rel="noopener">
+        <span class="label">GitHub</span>
+        <span class="value">github.com/MichaelPezzei</span>
+      </a>
+      <a class="contact-card" href="mailto:deine@email.hier">
+        <span class="label">E-Mail</span>
+        <span class="value">deine@email.hier</span>
+      </a>
+    </div>
+  </section>
+
+</div>
+
+<footer>
+  <p>Gebaut mit HTML &amp; CSS · Gehostet auf GitHub Pages · © 2026 Michael Pezzei</p>
+</footer>
+
+</body>
+</html>
